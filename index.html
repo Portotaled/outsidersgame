@@ -7,13 +7,13 @@
     <style>
       :root {
         color-scheme: dark;
-        --bg: #08120f;
-        --panel: #101b1a;
-        --panel-strong: #14312f;
+        --bg: #120d08;
+        --panel: #1b1410;
+        --panel-strong: #312214;
         --text: #f2f8f1;
-        --muted: #9bd5b7;
-        --border: #0d4038;
-        --accent: #79f2a7;
+        --muted: #dacb5b;
+        --border: #736821;
+        --accent: #ece26e;
       }
 
       * {
@@ -24,7 +24,7 @@
         margin: 0;
         min-height: 100vh;
         font-family: Inter, system-ui, sans-serif;
-        background: radial-gradient(circle at top, #0f3d32 0%, var(--bg) 45%);
+        background: #dacb5b;
         color: var(--text);
       }
       #story-text {
@@ -33,7 +33,7 @@
       }
 
       header {
-        background: #025043;
+        background: #312214;
         color: white;
         text-align: center;
         font-size: clamp(2rem, 2.5vw, 3rem);
@@ -50,7 +50,6 @@
         background: var(--panel);
         border: 1px solid var(--border);
         border-radius: 24px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
         overflow: hidden;
       }
 
@@ -86,7 +85,7 @@
         font-size: 1rem;
         font-weight: 600;
         color: #0d2a1f;
-        background: linear-gradient(135deg, #9ff6bf 0%, #55dca6 100%);
+        background-color: #312214;
         cursor: pointer;
         transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease;
       }
@@ -99,7 +98,7 @@
 
       .button:focus,
       .choice-btn:focus {
-        outline: 2px solid #bdf6d0;
+        outline: 2px solid #ece26e;
         outline-offset: 4px;
       }
 
@@ -132,7 +131,7 @@
         max-height: 54vh;
         overflow-y: auto;
         padding: 1.5rem;
-        background: linear-gradient(180deg, rgba(10, 25, 20, 0.95), rgba(5, 12, 10, 0.98));
+        background-color: #312214;
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 22px;
       }
@@ -163,7 +162,7 @@
       }
 
       #restart-button {
-        border-color: rgba(255, 255, 255, 0.12);
+        border-color: #ece26e;
         background: transparent;
         color: var(--text);
       }
