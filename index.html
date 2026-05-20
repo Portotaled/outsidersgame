@@ -457,7 +457,7 @@ window.OUTSIDERS_GAME_DATA = {
     "nodes": {
       "intro": {
         "type": "text",
-        "text": "LEVEL 4: WINDRIXVILLE CHURCH\n\nDally gave you fifty bucks, a gun, and directions.\nJay Mountain. An abandoned church. Lay low.\n\nYou and Johnny hopped a freight train in the dark.\nYou arrive at the church, smelling like old wood and dust.\nIt's been empty for years, but now it's yours.\n\nDays pass, you eat bologna sandwiches and drink warm Pepsi.\nYou play poker with matchsticks. You sleep on the hard floor.\n\nHow do you pass the time?",
+        "text": "LEVEL 4: WINDRIXVILLE CHURCH\n\nDally gave you fifty bucks, a gun, and directions.\nJay Mountain. An abandoned church. Lay low.\n\nYou and Johnny hopped a freight train in the dark.\nYou arrive at the church, smelling like old wood and dust.\nIt's been empty for years, but now it's yours.\n\nDays pass, you eat bologna sandwiches.\nYou play poker with matchsticks. You sleep on the hard floor.\n\nHow do you pass the time?",
         "next": "choice_time"
       },
       "choice_time": {
@@ -618,39 +618,39 @@ window.OUTSIDERS_GAME_DATA = {
       },
       "fight_starts": {
         "type": "text",
-        "text": "The Socs' leader steps forward.\nDarry challenges all of the Socs, and a guy named Paul steps up.\nOne punch from Paul lands before everything explodes.\n\nFists and boots and shouting everywhere.\nYou take a hit to the jaw, another to the ribs.\n\nA Soc pulls a blade, breaking the no-weapons rule.",
-        "next": "choice_blade"
+        "text": "The Socs' leader steps forward.\nDarry challenges all of the Socs, and a guy named Paul steps up.\nOne punch from Paul lands before everything explodes.\n\nFists and boots and shouting everywhere.\nYou take a hit to the jaw, another to the ribs.\n\nA Soc comes for you, fists raised.",
+        "next": "choice_fight_response"
       },
-      "choice_blade": {
+      "choice_fight_response": {
         "type": "choice",
         "options": [
           [
-            "Call it out loud",
-            "call_out"
+            "Punch him in the gut",
+            "hit"
           ],
           [
             "Dodge and keep fighting",
             "dodge"
           ],
           [
-            "Grab the blade yourself",
+            "Pull out your switch blade",
             "grab_blade"
           ]
         ]
       },
       "grab_blade": {
         "type": "gameover",
-        "text": "You lunge for it. Your hand closes around the blade.\nIt opens your palm to the bone, blood pours out.\nYou go down, and when Socs see the blood, things escalate fast.\nSomeone pulls a chain, and two greasers end up in the hospital.\nYou never make it to Johnny in time.\n\nYou grabbed a blade with your bare hand.\nBrave, but also stupid.",
+        "text": "You reach into your pocket and flip open your switchblade, before planting it deep in his chest. \n He stumbles down in pain, and everybody around you pulls out their own blade in fear. \n Body after body began to fall until the rumble turned into a masacre. \n You turn around and see Paul, dismembered but alive, and he finishes you off with a switchblade of his own.",
         "retry_level": 6
       },
-      "call_out": {
+      "hit": {
         "type": "text",
-        "text": "'HE'S GOT A BLADE!' you shout.\nThe crowd freezes, and the Soc tosses it, embarrassed.\nFair fight restored.",
+        "text": "You slam your fist into his intestines, and he grimaces in pain. \n Just as he was about to bash your head, Two-bit comes in and knocks him out cold.",
         "next": "greasers_win"
       },
       "dodge": {
         "type": "text",
-        "text": "You sidestep it and catch him with a right hook.\nHe goes down and you keep moving.",
+        "text": "You sidestep it and push another guy into him.\nThey both go down and you keep moving.",
         "next": "greasers_win"
       },
       "greasers_win": {
