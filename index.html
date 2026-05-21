@@ -35,6 +35,7 @@
         min-height: 100vh;
         font-family: GameFont, Inter, system-ui, sans-serif;
         background: #07120f;
+        background-image: radial-gradient(circle at top center, rgba(212,175,55,0.12), transparent 28%), radial-gradient(circle at 85% 15%, rgba(212,175,55,0.06), transparent 14%);
         color: var(--text);
       }
 
@@ -242,8 +243,8 @@
             <h1 class="large-heading">Play The Outsiders Story</h1>
             <p class="lead">This website now hosts a browser playable version of the Python text adventure from <code>assets/OutsidersGame.py</code>. Start the game and walk through the levels with just clicks or keyboard keys.</p>
           </div>
-          <button id="start-button" class="button">Load Game</button>
-          <a class="button" href="assets/OutsidersGame.py" download="OutsidersGame.py">Download Python Game File</a>
+          <button id="start-button" class="button" aria-label="Load the Outsiders game">Load Game</button>
+          <a class="button" href="assets/OutsidersGame.py" download="OutsidersGame.py" aria-label="Download the Outsiders Python game source">Download Python Game File</a>
         </div>
 
         <div class="panel-inner hidden" id="game-screen">
