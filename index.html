@@ -5,15 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Outsiders Free To Play Game</title>
     <style>
+      /* Game font and title background (provided in /assets/) */
+      @font-face {
+        font-family: 'GameFont';
+        src: url('assets/GAMEFONT.ttf') format('truetype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
       :root {
-        color-scheme: dark;
-        --bg: #120d08;
-        --panel: #1b1410;
-        --panel-strong: #312214;
-        --text: #f2f8f1;
-        --muted: #dacb5b;
-        --border: #736821;
-        --accent: #ece26e;
+        --gold: #d4af37; /* primary gold */
+        --gold-dim: #8c6e1e;
+        --bg: #08120f;
+        --panel: rgba(10,10,10,0.6);
+        --panel-strong: rgba(6,6,6,0.8);
+        --text: #efe8d6;
+        --muted: #dbc78a;
+        --border: rgba(212,175,55,0.18);
+        --accent: #f5e29a;
       }
 
       * {
@@ -23,21 +33,29 @@
       body {
         margin: 0;
         min-height: 100vh;
-        font-family: Inter, system-ui, sans-serif;
-        background: #dacb5b;
+        font-family: GameFont, Inter, system-ui, sans-serif;
+        background: #07120f;
         color: var(--text);
       }
+
+      /* story text container uses preserved line breaks */
       #story-text {
         line-height: 1.8;
         white-space: pre-wrap;
+        font-family: GameFont, ui-monospace, monospace;
+        color: var(--text);
+        font-size: 1.05rem;
       }
 
       header {
-        background: #312214;
-        color: white;
+        background: linear-gradient(90deg, rgba(0,0,0,0.6), rgba(20,12,6,0.8));
+        color: var(--gold);
         text-align: center;
         font-size: clamp(2rem, 2.5vw, 3rem);
         padding: 1.5rem 1rem;
+        font-family: 'GameFont', Inter, system-ui, sans-serif;
+        letter-spacing: 1px;
+        text-shadow: 0 2px 0 rgba(0,0,0,0.6);
       }
 
       main {
@@ -47,10 +65,11 @@
       }
 
       .panel {
-        background: var(--panel);
+        background: linear-gradient(180deg, rgba(5,5,5,0.55), rgba(8,6,4,0.6));
         border: 1px solid var(--border);
         border-radius: 24px;
         overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0,0,0,0.6);
       }
 
       .panel-inner {
@@ -79,26 +98,28 @@
       .button,
       .choice-btn {
         appearance: none;
-        border: 1px solid transparent;
-        border-radius: 14px;
-        padding: 1rem 1.25rem;
+        border: 1px solid rgba(0,0,0,0.25);
+        border-radius: 12px;
+        padding: 0.8rem 1rem;
         font-size: 1rem;
         font-weight: 600;
-        color: #FFFFFF;
+        color: #0d2a1f;
         background-color: #312214;
         cursor: pointer;
-        transition: transform 0.15s ease, filter 0.15s ease, background 0.15s ease;
+        transition: transform 0.12s ease, filter 0.12s ease, box-shadow 0.12s ease;
+        font-family: 'GameFont', Inter, system-ui, sans-serif;
       }
 
       .button:hover,
       .choice-btn:hover {
         transform: translateY(-2px);
-        filter: brightness(1.05);
+        filter: brightness(1.02);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.45);
       }
 
       .button:focus,
       .choice-btn:focus {
-        outline: 2px solid #ece26e;
+        outline: 3px solid rgba(212,175,55,0.24);
         outline-offset: 4px;
       }
 
@@ -117,7 +138,11 @@
 
       .game-header h2 {
         margin: 0;
-        font-size: clamp(1.5rem, 2vw, 2rem);
+        font-size: clamp(1.7rem, 2.6vw, 2.4rem);
+        color: var(--gold);
+        font-family: 'GameFont', Inter, system-ui, sans-serif;
+        text-shadow: 0 2px 0 rgba(0,0,0,0.6);
+        letter-spacing: 0.6px;
       }
 
       .game-header .subtitle {
@@ -131,14 +156,15 @@
         max-height: 54vh;
         overflow-y: auto;
         padding: 1.5rem;
-        background-color: #312214;
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: linear-gradient(180deg, rgba(0,0,0,0.6), rgba(6,6,6,0.5));
+        border: 1px solid rgba(212,175,55,0.12);
         border-radius: 22px;
       }
 
       #story-container p {
         margin: 0 0 1rem;
         line-height: 1.8;
+        color: var(--text);
       }
 
       #choices {
@@ -162,9 +188,36 @@
       }
 
       #restart-button {
-        border-color: #ece26e;
+        border-color: rgba(212,175,55,0.18);
         background: transparent;
-        color: var(--text);
+        color: var(--gold);
+      }
+
+      /* Game background using TITLE.png when the game screen is visible */
+      #game-screen {
+        background-image: url('assets/TITLE.png');
+        background-size: cover;
+        background-position: center center;
+        position: relative;
+      }
+
+      /* Subtle dark overlay over title image to keep text readable */
+      #game-screen::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(4,4,4,0.55), rgba(4,4,4,0.75));
+        z-index: 0;
+        border-radius: 0.5rem;
+      }
+
+      /* Ensure panel-inner sits above the overlay */
+      #game-screen > .panel-inner,
+      #game-screen .game-header,
+      #game-screen #story-container,
+      #game-screen #choices {
+        position: relative;
+        z-index: 1;
       }
 
       .hidden {
@@ -900,8 +953,6 @@ function render() {
 
   if (currentNode?.text) {
     storyText.innerHTML = formatStory(currentNode.text);
-  } else {
-    storyText.innerHTML = '<p>Nothing to display.</p>';
   }
 
   choicesContainer.innerHTML = '';
