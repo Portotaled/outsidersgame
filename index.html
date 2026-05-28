@@ -704,7 +704,7 @@
             },
             "soda_speaks": {
               "type": "text",
-              "text": "Soda turns around, his face is wrecked.\n'You two are always fighting and I am always in the middle\I can't take it no more.'\n\nSomething breaks open in you.\nYou and Darry both start talking at once. Then stop. Then listen.\n\nFor the first time in weeks, the three of you are just brothers.\n\n\u2500\u2500\u2500\n\nYour English teacher offers you a deal:\nwrite one honest essay, pass the class.\n\nYou find a note tucked inside your copy of Gone with the Wind.\nJohnny's handwriting, shaky, but clear.\n\n'I have been thinking about what you said about staying gold.'\n'I think you still can, think you should tell people.'\n'Not just greasers, but Socs, everyone.\nTell them it does not have to be like this.'\n\nYour essay is due tomorrow. Do you...",
+              "text": "Soda turns around, his face is wrecked.\n'You two are always fighting and I am always in the middle\nI can't take it no more.'\n\nSomething breaks open in you.\nYou and Darry both start talking at once. Then stop. Then listen.\n\nFor the first time in weeks, the three of you are just brothers.\n\n\u2500\u2500\u2500\n\nYour English teacher offers you a deal:\nwrite one honest essay, pass the class.\n\nYou find a note tucked inside your copy of Gone with the Wind.\nJohnny's handwriting, shaky, but clear.\n\n'I have been thinking about what you said about staying gold.'\n'I think you still can, think you should tell people.'\n'Not just greasers, but Socs, everyone.\nTell them it does not have to be like this.'\n\nYour essay is due tomorrow. Do you...",
               "next": "choice_essay"
             },
             "choice_essay": {
@@ -768,7 +768,6 @@
       const restartButton = document.getElementById('restart-button');
       const mySound = new Audio('BACKGROUND_MUSICA.mp4');
       mySound.loop = true;
-      mySound.play();
 
       function escapeHTML(text) {
         return text
@@ -934,6 +933,7 @@
       }
 
       function startGame() {
+        mySound.play();
         currentState = stateNames.NARRATIVE;
         navLevel = 1;
         startLevel(1);
