@@ -845,6 +845,19 @@ const choicesContainer = document.getElementById('choices');
 const hintText = document.getElementById('hint-text');
 const restartButton = document.getElementById('restart-button');
 
+const bgMusic = document.getElementById('bg-music');
+
+bgMusic.volume = 0.4;
+
+function playMusic() {
+  bgMusic.play().catch(() => {});
+}
+
+function stopMusic() {
+  bgMusic.pause();
+  bgMusic.currentTime = 0;
+}
+
 function escapeHTML(text) {
   return text.replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -900,6 +913,7 @@ function startLevel(level) {
 function advanceNode() {
   const nextId = currentNode.next;
   if (!nextId) return;
+
   if (nextId === '__next_level__') {
     advanceLevel();
   } else if (nextId === '__win__') {
@@ -912,7 +926,9 @@ function advanceNode() {
 function chooseOption(index) {
   const option = currentNode.options[index];
   if (!option) return;
+
   const nextId = option[1];
+
   if (nextId === '__next_level__') {
     advanceLevel();
   } else if (nextId === '__win__') {
@@ -924,6 +940,7 @@ function chooseOption(index) {
 
 function advanceLevel() {
   const nextLevel = Math.min(navLevel + 1, Object.keys(GAME_DATA).length);
+
   if (navLevel >= Object.keys(GAME_DATA).length) {
     winGame();
   } else {
@@ -936,6 +953,7 @@ function winGame() {
     type: stateNames.WIN,
     text: "CONGRATULATIONS\n\nYou made it through all seven levels.\n\nStay gold.\n\nClick Restart to play again.",
   };
+
   setState(stateNames.WIN);
 }
 
@@ -949,6 +967,7 @@ function restartGame() {
   setState(stateNames.TITLE);
   introScreen.classList.remove('hidden');
   gameScreen.classList.add('hidden');
+  playMusic();
 }
 
 function render() {
@@ -959,47 +978,77 @@ function render() {
     return;
   }
 
-  gameTitle.textContent = currentState === stateNames.WIN ? 'STAY GOLD' : GAME_DATA[navLevel].title;
-  levelTitle.textContent = currentState === stateNames.WIN ? 'YOU WIN' : `Level ${navLevel}`;
+  gameTitle.textContent =
+    currentState === stateNames.WIN
+      ? 'STAY GOLD'
+      : GAME_DATA[navLevel].title;
+
+  levelTitle.textContent =
+    currentState === stateNames.WIN
+      ? 'YOU WIN'
+      : `Level ${navLevel}`;
 
   if (currentNode?.text) {
     storyText.innerHTML = formatStory(currentNode.text);
   }
 
   choicesContainer.innerHTML = '';
+
   if (currentState === stateNames.CHOICE) {
     currentNode.options.forEach((option, index) => {
       const button = document.createElement('button');
+
       button.className = 'choice-btn';
       button.textContent = `${index + 1}. ${option[0]}`;
+
       button.addEventListener('click', () => chooseOption(index));
+
       choicesContainer.appendChild(button);
     });
+
     hintText.textContent = 'Choose an option or press 1-4.';
     restartButton.classList.add('hidden');
   } else if (currentState === stateNames.GAME_OVER) {
     const retry = document.createElement('button');
+
     retry.className = 'choice-btn';
     retry.textContent = 'Retry Level';
+
     retry.addEventListener('click', restartLevel);
+
     choicesContainer.appendChild(retry);
-    hintText.textContent = 'Retry this level or choose another page option.';
+
+    hintText.textContent =
+      'Retry this level or choose another page option.';
+
     restartButton.classList.remove('hidden');
   } else if (currentState === stateNames.WIN) {
     const restart = document.createElement('button');
+
     restart.className = 'choice-btn';
     restart.textContent = 'Restart Game';
+
     restart.addEventListener('click', () => startLevel(1));
+
     choicesContainer.appendChild(restart);
-    hintText.textContent = 'You completed the story. Restart to play again.';
+
+    hintText.textContent =
+      'You completed the story. Restart to play again.';
+
     restartButton.classList.remove('hidden');
   } else if (currentState === stateNames.NARRATIVE) {
-    hintText.textContent = 'Read the story and click Continue to proceed.';
+    hintText.textContent =
+      'Read the story and click Continue to proceed.';
+
     const continueButton = document.createElement('button');
+
     continueButton.className = 'choice-btn';
     continueButton.textContent = 'Continue';
+
     continueButton.addEventListener('click', advanceNode);
+
     choicesContainer.appendChild(continueButton);
+
     restartButton.classList.remove('hidden');
   }
 }
@@ -1007,25 +1056,34 @@ function render() {
 function startGame() {
   currentState = stateNames.NARRATIVE;
   navLevel = 1;
+
   startLevel(1);
+
   introScreen.classList.add('hidden');
   gameScreen.classList.remove('hidden');
+
+  playMusic();
 }
 
 function handleKeyDown(event) {
   if (currentState === stateNames.TITLE) return;
+
   if (event.key === 'Escape') {
     restartGame();
     return;
   }
 
-  if (currentState === stateNames.NARRATIVE && ['Enter', ' ', 'Spacebar'].includes(event.key)) {
+  if (
+    currentState === stateNames.NARRATIVE &&
+    ['Enter', ' ', 'Spacebar'].includes(event.key)
+  ) {
     advanceNode();
     return;
   }
 
   if (currentState === stateNames.CHOICE) {
     const choiceIndex = parseInt(event.key, 10) - 1;
+
     if (!Number.isNaN(choiceIndex)) {
       chooseOption(choiceIndex);
     }
@@ -1033,12 +1091,21 @@ function handleKeyDown(event) {
 }
 
 window.addEventListener('load', () => {
-  document.getElementById('start-button').addEventListener('click', startGame);
-  restartButton.addEventListener('click', restartGame);
-  document.addEventListener('keydown', handleKeyDown);
-  render();
-});
+  document
+    .getElementById('start-button')
+    .addEventListener('click', startGame);
 
+  restartButton.addEventListener('click', restartGame);
+
+  document.addEventListener('keydown', handleKeyDown);
+
+  render();
+
+  playMenuMusic();
+});
 </script>
+<audio id="bg-music" loop>
+  <source src="BACKGROUND_MUSICA.mp4" type="audio/mpeg">
+</audio>
   </body>
 </html>
