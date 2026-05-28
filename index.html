@@ -20,9 +20,7 @@
             --border: rgba(212,175,55,0.18);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         body {
             margin: 0;
@@ -56,9 +54,7 @@
             overflow: hidden;
         }
 
-        .panel-inner {
-            padding: 2rem;
-        }
+        .panel-inner { padding: 2rem; }
 
         #intro-screen {
             display: grid;
@@ -77,9 +73,7 @@
             color: #000;
         }
 
-        .hidden {
-            display: none !important;
-        }
+        .hidden { display: none !important; }
 
         #game-screen {
             position: relative;
@@ -150,41 +144,428 @@
 <script>
 window.OUTSIDERS_GAME_DATA = {
     "1": {
-        title: "LEVEL 1",
+        title: "LEVEL 1: EAST SIDE STREETS",
         start: "intro",
         nodes: {
             intro: {
                 type: "text",
-                text: "You are Ponyboy...",
+                text: "LEVEL 1: EAST SIDE STREETS\n\nYou're Ponyboy Curtis. Fourteen years old, greaser.\nYou just walked out of a Paul Newman picture alone,\nand you already know that was a mistake.\n\nThe streets of the East Side stretch out ahead of you.\nYour neighborhood. Your turf. But alone, it's dangerous.\n\nWhich way do you go home?",
                 next: "choice_route"
             },
             choice_route: {
                 type: "choice",
                 options: [
                     ["Back alleys", "alley"],
-                    ["Main street", "main"]
+                    ["Main street", "main"],
+                    ["Cut through Soc territory", "soc_territory"]
                 ]
+            },
+            soc_territory: {
+                type: "gameover",
+                text: "You figure it'll be faster. It isn't.\n\nA pack of Socs spots you two blocks in, and you're totally alone, deep in their turf.\nThey beat you bad enough that you wake up in the gutter.\n\nYou walked into Soc territory alone.",
+                retry_level: 1
             },
             alley: {
                 type: "text",
-                text: "You take the alley...",
-                next: "rescue"
+                text: "Smart. But not smart enough.\n\nA blue Mustang rolls up. Socs.\nFive of them shove you against a fence.\n\nDo you...",
+                next: "choice_fight"
             },
             main: {
                 type: "text",
-                text: "You go main street...",
+                text: "You try to stay visible. Doesn't help.\n\nA blue Mustang cuts you off. Socs.\nFive of them shove you against a fence.\n\nDo you...",
+                next: "choice_fight"
+            },
+            choice_fight: {
+                type: "choice",
+                options: [
+                    ["Yell for help", "yell"],
+                    ["Fight back", "fight"],
+                    ["Stay quiet and take it", "quiet"]
+                ]
+            },
+            quiet: {
+                type: "gameover",
+                text: "You go limp. They beat you down.\nNo one comes.\n\nSilence doesn't protect you here.",
+                retry_level: 1
+            },
+            yell: {
+                type: "text",
+                text: "You yell out. Your voice echoes.",
+                next: "rescue"
+            },
+            fight: {
+                type: "text",
+                text: "You throw a desperate punch. It buys time.",
                 next: "rescue"
             },
             rescue: {
                 type: "text",
-                text: "Your gang arrives.",
+                text: "Your gang arrives.\n\n>>> Level 1 complete.",
                 next: "__next_level__"
+            }
+        }
+    },
+
+    "2": {
+        title: "LEVEL 2: THE DRIVE-IN",
+        start: "intro",
+        nodes: {
+            intro: {
+                type: "text",
+                text: "You sneak into the drive-in with Johnny and Dally.\nNo money. Never money.\n\nSoc girls sit in front of you.\nDally starts trouble.\n\nDo you...",
+                next: "choice_dally"
+            },
+            choice_dally: {
+                type: "choice",
+                options: [
+                    ["Let Dally do his thing", "dally_loose"],
+                    ["Tell him to cool it", "dally_cool"],
+                    ["Leave", "leave"]
+                ]
+            },
+            leave: {
+                type: "gameover",
+                text: "You leave early.\nDally fights later and things spiral.\n\nYou never meet Cherry Valance.\nEverything gets worse.",
+                retry_level: 2
+            },
+            dally_loose: {
+                type: "text",
+                text: "Cherry Valance throws Coke in Dally's face.\nShe turns to you.\n\n'You know things are rough all over.'\n\nWhat do you talk about?",
+                next: "choice_talk"
+            },
+            dally_cool: {
+                type: "text",
+                text: "Johnny calms Dally.\nCherry smiles at Johnny.\n\nWhat do you talk about?",
+                next: "choice_talk"
+            },
+            choice_talk: {
+                type: "choice",
+                options: [
+                    ["Movies", "movies"],
+                    ["The gang divide", "divide"],
+                    ["Insult Socs", "fight_cherry"]
+                ]
+            },
+            fight_cherry: {
+                type: "gameover",
+                text: "Cherry walks away.\nYou lose your connection.\n\nYou pushed her away.",
+                retry_level: 2
+            },
+            movies: {
+                type: "text",
+                text: "You talk about movies.\nSomething shifts.\n\n>>> Level 2 complete.",
+                next: "__next_level__"
+            },
+            divide: {
+                type: "text",
+                text: "She talks about Soc emptiness.\nYou listen.\n\n>>> Level 2 complete.",
+                next: "__next_level__"
+            }
+        }
+    },
+
+    "3": {
+        title: "LEVEL 3: THE PARK",
+        start: "intro",
+        nodes: {
+            intro: {
+                type: "text",
+                text: "You and Johnny are in the park.\nSocs arrive drunk.\n\nWhat do you do?",
+                next: "choice_park"
+            },
+            choice_park: {
+                type: "choice",
+                options: [
+                    ["Stand ground", "stand"],
+                    ["Run", "run"]
+                ]
+            },
+            run: {
+                type: "text",
+                text: "They catch you and force you under water.",
+                next: "drowning"
+            },
+            stand: {
+                type: "text",
+                text: "You refuse to back down.\nThey attack.",
+                next: "drowning"
+            },
+            drowning: {
+                type: "text",
+                text: "You are drowning.\n\nJohnny stabs Bob.\nBob is dead.\n\nWhat do you say?",
+                next: "choice_johnny"
+            },
+            choice_johnny: {
+                type: "choice",
+                options: [
+                    ["Call police", "police"],
+                    ["Run", "run2"],
+                    ["Tell Johnny to turn himself in", "abandon"]
+                ]
+            },
+            abandon: {
+                type: "gameover",
+                text: "You abandon Johnny.\nHe goes alone.\nEverything breaks.",
+                retry_level: 3
+            },
+            police: {
+                type: "text",
+                text: "Police would split you up.\nYou both know it.",
+                next: "dally_plan"
+            },
+            run2: {
+                type: "text",
+                text: "You decide to run.",
+                next: "dally_plan"
+            },
+            dally_plan: {
+                type: "text",
+                text: "You go to Dally.\n\n>>> Level 3 complete.",
+                next: "__next_level__"
+            }
+        }
+    },
+
+    "4": {
+        title: "LEVEL 4: WINDRIXVILLE CHURCH",
+        start: "intro",
+        nodes: {
+            intro: {
+                type: "text",
+                text: "You hide in an old church with Johnny.\nDays pass.\n\nHow do you pass time?",
+                next: "choice_time"
+            },
+            choice_time: {
+                type: "choice",
+                options: [
+                    ["Read", "read"],
+                    ["Watch", "watch"],
+                    ["Go to town", "sneak"]
+                ]
+            },
+            sneak: {
+                type: "gameover",
+                text: "You are recognized.\nJohnny is captured.\n",
+                retry_level: 4
+            },
+            read: {
+                type: "text",
+                text: "You read Gone with the Wind.\nJohnny likes it.",
+                next: "frost"
+            },
+            watch: {
+                type: "text",
+                text: "You watch the world below.\nSomething feels distant.",
+                next: "frost"
+            },
+            frost: {
+                type: "text",
+                text: "You recite Frost.\n\nThen the church catches fire.\n\n>>> Level 4 complete.",
+                next: "__next_level__"
+            }
+        }
+    },
+
+    "5": {
+        title: "LEVEL 5: THE FIRE",
+        start: "intro",
+        nodes: {
+            intro: {
+                type: "text",
+                text: "The church is burning.\nKids are inside.\n\nWhat do you do?",
+                next: "choice_fire"
+            },
+            choice_fire: {
+                type: "choice",
+                options: [
+                    ["Go in", "go_in"],
+                    ["Wait", "wait"],
+                    ["Run", "run"]
+                ]
+            },
+            run: {
+                type: "gameover",
+                text: "You run.\nKids die.\n",
+                retry_level: 5
+            },
+            wait: {
+                type: "text",
+                text: "You hesitate.\nThen go in.",
+                next: "inside"
+            },
+            go_in: {
+                type: "text",
+                text: "You rush in immediately.",
+                next: "inside"
+            },
+            inside: {
+                type: "text",
+                text: "You save kids.\nJohnny is still inside.\n\nWhat now?",
+                next: "choice_johnny"
+            },
+            choice_johnny: {
+                type: "choice",
+                options: [
+                    ["Go back", "go_back"],
+                    ["Yell", "yell"],
+                    ["Assume he escaped", "assume"]
+                ]
+            },
+            assume: {
+                type: "gameover",
+                text: "Johnny dies inside.",
+                retry_level: 5
+            },
+            go_back: {
+                type: "text",
+                text: "Dally pulls you out.\n",
+                next: "beam"
+            },
+            yell: {
+                type: "text",
+                text: "Johnny jumps.",
+                next: "beam"
+            },
+            beam: {
+                type: "text",
+                text: "Johnny is badly injured.\n\n>>> Level 5 complete.",
+                next: "__next_level__"
+            }
+        }
+    },
+
+    "6": {
+        title: "LEVEL 6: THE RUMBLE",
+        start: "intro",
+        nodes: {
+            intro: {
+                type: "text",
+                text: "Greasers vs Socs.\nJohnny is dying.\n\nDo you...",
+                next: "choice_psych"
+            },
+            choice_psych: {
+                type: "choice",
+                options: [
+                    ["Psych up", "psych"],
+                    ["Think of Johnny", "think"]
+                ]
+            },
+            psych: {
+                type: "text",
+                text: "You prepare.",
+                next: "fight_starts"
+            },
+            think: {
+                type: "text",
+                text: "You think of Johnny.",
+                next: "fight_starts"
+            },
+            fight_starts: {
+                type: "text",
+                text: "Fight begins.\nA blade appears.",
+                next: "choice_blade"
+            },
+            choice_blade: {
+                type: "choice",
+                options: [
+                    ["Call it out", "call_out"],
+                    ["Dodge", "dodge"],
+                    ["Grab blade", "grab_blade"]
+                ]
+            },
+            grab_blade: {
+                type: "gameover",
+                text: "You are badly injured.",
+                retry_level: 6
+            },
+            call_out: {
+                type: "text",
+                text: "You call out the weapon.",
+                next: "greasers_win"
+            },
+            dodge: {
+                type: "text",
+                text: "You dodge and fight.",
+                next: "greasers_win"
+            },
+            greasers_win: {
+                type: "text",
+                text: "Greasers win.\nJohnny dies later.\n\n>>> Level 6 complete.",
+                next: "__next_level__"
+            }
+        }
+    },
+
+    "7": {
+        title: "LEVEL 7: AFTERMATH",
+        start: "intro",
+        nodes: {
+            intro: {
+                type: "text",
+                text: "Dally dies.\nSoda breaks.\n\nDo you...",
+                next: "choice_soda"
+            },
+            choice_soda: {
+                type: "choice",
+                options: [
+                    ["Go after him", "chase"],
+                    ["Let him go", "darry_chase"],
+                    ["Ignore", "abandon_soda"]
+                ]
+            },
+            abandon_soda: {
+                type: "gameover",
+                text: "Your family breaks apart.",
+                retry_level: 7
+            },
+            chase: {
+                type: "text",
+                text: "You follow Soda.",
+                next: "soda_speaks"
+            },
+            darry_chase: {
+                type: "text",
+                text: "Darry comes with you.",
+                next: "soda_speaks"
+            },
+            soda_speaks: {
+                type: "text",
+                text: "You reconcile.\n\nWrite your essay.\n\nDo you...",
+                next: "choice_essay"
+            },
+            choice_essay: {
+                type: "choice",
+                options: [
+                    ["Tell truth", "write_truth"],
+                    ["Quit", "skip"],
+                    ["Hide truth", "hollow"]
+                ]
+            },
+            skip: {
+                type: "gameover",
+                text: "You fail English.",
+                retry_level: 7
+            },
+            hollow: {
+                type: "text",
+                text: "Your essay is rejected.\nTry again.",
+                next: "choice_essay2"
+            },
+            choice_essay2: {
+                type: "choice",
+                options: [
+                    ["Write truth", "write_truth"],
+                    ["Give up", "skip"]
+                ]
+            },
+            write_truth: {
+                type: "text",
+                text: "You write everything.\n\nTHE END.\n\nStay gold.",
+                next: "__win__"
             }
         }
     }
 };
-
-const GAME_DATA = window.OUTSIDERS_GAME_DATA;
 
 const stateNames = {
     TITLE: "title",
@@ -204,10 +585,7 @@ const gameTitle = document.getElementById("game-title");
 const levelTitle = document.getElementById("level-title");
 
 function escapeHTML(text) {
-    return text
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+    return text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }
 
 function formatStory(text) {
@@ -220,14 +598,13 @@ function setState(state) {
 }
 
 function loadNode(id) {
-    currentNode = GAME_DATA[navLevel].nodes[id];
-
+    currentNode = window.OUTSIDERS_GAME_DATA[navLevel].nodes[id];
     if (currentNode.type === "text") setState(stateNames.NARRATIVE);
     if (currentNode.type === "choice") setState(stateNames.CHOICE);
 }
 
 function startLevel() {
-    loadNode(GAME_DATA[navLevel].start);
+    loadNode(window.OUTSIDERS_GAME_DATA[navLevel].start);
 }
 
 function advanceNode() {
@@ -248,11 +625,10 @@ function startGame() {
 function render() {
     if (!currentNode) return;
 
-    gameTitle.textContent = GAME_DATA[navLevel].title;
+    gameTitle.textContent = window.OUTSIDERS_GAME_DATA[navLevel].title;
     levelTitle.textContent = "Level " + navLevel;
 
     storyText.innerHTML = formatStory(currentNode.text || "");
-
     choicesContainer.innerHTML = "";
 
     if (currentState === stateNames.NARRATIVE) {
