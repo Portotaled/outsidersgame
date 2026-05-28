@@ -766,6 +766,9 @@
       const choicesContainer = document.getElementById('choices');
       const hintText = document.getElementById('hint-text');
       const restartButton = document.getElementById('restart-button');
+      const mySound = new Audio('BACKGROUND_MUSICA.mp4');
+      mySound.loop = true;
+      mySound.play();
 
       function escapeHTML(text) {
         return text
