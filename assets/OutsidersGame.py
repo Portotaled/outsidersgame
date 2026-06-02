@@ -4,8 +4,7 @@ import pygame
 import sys
  
 pygame.init()
- 
-# ── Screen & fonts ──────────────────────────────────────────────────────────
+
 SCREEN_W, SCREEN_H = 1200, 800
 screen = pygame.display.set_mode((SCREEN_W, SCREEN_H))
 pygame.display.set_caption("THE OUTSIDERS: VIDEO GAME")
@@ -23,7 +22,6 @@ except FileNotFoundError:
  
 clock = pygame.time.Clock()
  
-# ── Colors ───────────────────────────────────────────────────────────────────
 BLACK      = (0,   0,   0)
 WHITE      = (255, 255, 255)
 GOLD       = (212, 175, 55)
@@ -34,11 +32,10 @@ DARK_GRAY  = (20,  20,  20)
 MID_GRAY   = (50,  50,  50)
 LIGHT_GRAY = (180, 180, 180)
  
-# ── Layout constants ──────────────────────────────────────────────────────────
-BAR_H      = 90          # top/bottom black bars
-TEXT_Y     = BAR_H + 12  # where scrollable text starts
-CHOICE_Y   = SCREEN_H - BAR_H - 130  # top of choice buttons area
-TEXT_H     = CHOICE_Y - TEXT_Y - 8   # height of text viewport
+BAR_H      = 90         
+TEXT_Y     = BAR_H + 12  
+CHOICE_Y   = SCREEN_H - BAR_H - 130  
+TEXT_H     = CHOICE_Y - TEXT_Y - 8   
  
 CHOICE_BTN_H   = 44
 CHOICE_BTN_GAP = 10
@@ -52,13 +49,12 @@ except FileNotFoundError:
     background = pygame.Surface((SCREEN_W, SCREEN_H))
     background.fill((15, 10, 5))
  
-#Overlay (darkens background in game mode)
+#Overlay
 overlay = pygame.Surface((SCREEN_W, SCREEN_H))
 overlay.set_alpha(170)
 overlay.fill(BLACK)
  
 
-#TEXT WRAPPING HELPER
 def wrap_text(text, font, max_width):
     """Return list of rendered lines (surfaces, rects not yet set)."""
     lines = []
@@ -82,37 +78,34 @@ def wrap_text(text, font, max_width):
     return lines
  
  
-#GAME STATE
+#Game states
 class GameState:
     TITLE      = 'title'
     FADE_IN    = 'fade_in'
-    NARRATIVE  = 'narrative'    # showing text, waiting for SPACE / click
-    CHOICE     = 'choice'       # showing choices
+    NARRATIVE  = 'narrative'   
+    CHOICE     = 'choice'     
     GAME_OVER  = 'game_over'
     WIN        = 'win'
-    FADE_LEVEL = 'fade_level'   # short fade between levels
+    FADE_LEVEL = 'fade_level' 
  
 state        = GameState.TITLE
 fade_alpha   = 0
 fade_speed   = 6
  
-current_level   = 0   # 0 = title; 1-7 = levels
+current_level   = 0   
 pending_level   = 1
- 
-#Scroll variables
+
 scroll_y        = 0
 scroll_target   = 0
 LINE_H          = 32
  
-#text lines currently rendered
 text_lines      = []
 text_color      = WHITE
  
-#choice state
-choices         = []          # list of dicts {label, next_fn}
+choices         = []          
 hovered_choice  = -1
 
-LEVELS = {}   # filled below
+LEVELS = {}   
  
 def make_node(t, **kw):
     return {'type': t, **kw}
@@ -819,7 +812,7 @@ LEVELS[7] = {
 #Navigation variables
 nav_level    = 1      #current level number
 nav_node_id  = None   #current node id within level
-current_node = None   #resolved node dict
+current_node = None   
  
 def load_node(level_num, node_id):
     global nav_level, nav_node_id, current_node
@@ -900,7 +893,7 @@ def start_level(n):
     global state
     load_node(n, LEVELS[n]['start'])
  
-#Draws all game assets
+#Draws game assets
  
 def draw_background(dim=True):
     screen.blit(background, (0, 0))
@@ -941,7 +934,7 @@ def draw_text_area():
  
     screen.set_clip(None)
  
-    #scroll indicator
+    #scroll indicator bar
     total_h = sum(LINE_H if l else LINE_H // 2 for l in text_lines)
     if total_h > TEXT_H:
         ratio    = TEXT_H / total_h
@@ -1093,20 +1086,18 @@ while running:
                 scroll_target = max(0, min(scroll_target - event.y * LINE_H * 2,
                                            total_h - TEXT_H))
  
-    # ── Update ────────────────────────────────────────────────────────────────
     if state == GameState.FADE_IN:
         fade_alpha += fade_speed
         if fade_alpha >= 255:
             fade_alpha = 255
-            start_level(1)   # loads level 1 and sets state = NARRATIVE
+            start_level(1)   #loads level 1
  
     elif state == GameState.FADE_LEVEL:
         fade_alpha += fade_speed
         if fade_alpha >= 255:
             start_level(pending_level)
             fade_alpha = 255
- 
-    # ── Draw ──────────────────────────────────────────────────────────────────
+         
     if state == GameState.TITLE:
         draw_title_screen()
  
