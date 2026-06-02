@@ -220,7 +220,7 @@
         color: var(--gold);
       }
 
-      /* Game background using TITLE.png when the game screen is visible */
+      /* Game background */
       #game-screen {
         background-image: url('assets/TITLE.png');
         background-size: cover;
@@ -232,7 +232,7 @@
           0 35px 80px rgba(0,0,0,0.45);
       }
 
-      /* Subtle dark overlay over title image to keep text readable */
+      
       #game-screen::before {
         content: '';
         position: absolute;
@@ -242,7 +242,6 @@
         border-radius: 0.5rem;
       }
 
-      /* Ensure panel-inner sits above the overlay */
       #game-screen > .panel-inner,
       #game-screen .game-header,
       #game-screen #story-container,
